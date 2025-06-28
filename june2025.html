@@ -8,341 +8,275 @@
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto+Slab:wght@700&display=swap" rel="stylesheet" />
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Patrick Hand', cursive;
-      font-weight: 300;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      background-color: #f0f0f0;
-      color: #222;
-      overflow-x: hidden;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    body.dark {
-      background-color: #121212;
-      color: #eee;
-    }
+/* === Global Styles === */
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Patrick Hand', cursive;
+  font-weight: 350;
+  font-size: larger;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: aliceblue;
+  color: #222;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+}
+body.dark {
+  background-color: #121212;
+  color: #eee;
+}
 
-    a {
-      color: #0066cc;
-      text-decoration: none;
-      transition: color 0.3s;
-    }
-    a:hover {
-      color: #004a99;
-      text-decoration: underline;
-    }
-    body.dark a {
-      color: #90caf9;
-    }
-    body.dark a:hover {
-      color: #5a9ce9;
-    }
+/* === Links === */
+a {
+  color: #0066cc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+a:hover {
+  color: #004a99;
+  text-decoration: underline;
+}
+body.dark a {
+  color: #90caf9;
+}
+body.dark a:hover {
+  color: #5a9ce9;
+}
 
-    /* === Animated Background Blob === */
-    #blob {
-      background: linear-gradient(to right, magenta, darkblue);
-      height: 34vmax;
-      aspect-ratio: 1;
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      translate: -50% -50%;
-      border-radius: 50%;
-      animation: rotate 20s infinite alternate ease-in-out, pulse 4s infinite ease-in-out;
-      opacity: 0.3;
-      z-index: 0;
-      pointer-events: none;
-      will-change: transform;
-      transition: background 0.5s ease;
-    }
+/* === Animated Background Blob === */
+#blob {
+  background: linear-gradient(to right, magenta, darkblue);
+  height: 34vmax;
+  aspect-ratio: 1;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  border-radius: 50%;
+  animation: rotate 20s infinite alternate ease-in-out, pulse 4s infinite ease-in-out;
+  opacity: 0.3;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+  transition: background 0.5s ease;
+}
+body.dark #blob {
+  background: linear-gradient(to right, cyan, purple);
+}
+#blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  backdrop-filter: blur(12vmax);
+  z-index: 0;
+  pointer-events: none;
+}
+@keyframes rotate {
+  from { rotate: 0deg; }
+  50% { scale: 1 1.5; }
+  to { rotate: 360deg; }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+@media (max-width: 768px) {
+  #blob, #blur {
+    display: none;
+  }
+}
 
-    body.dark #blob {
-      background: linear-gradient(to right, cyan, purple);
-    }
+/* === Page Content === */
+.container {
+  max-width: 960px;
+  margin: 3rem auto 5rem;
+  padding: 0 1rem;
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.left, .right {
+  flex: 1 1 320px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-container {
+  position: relative;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-top: 50px;
+}
+h1.name {
+  font-family: 'Roboto Slab', serif;
+  font-weight: 700;
+  font-size: 3.2rem;
+  margin: 0 0 0.3rem 0;
+}
+.subtitle {
+  font-size: 1.25rem;
+  color: #555;
+  margin-bottom: 2rem;
+  transition: color 0.3s;
+}
+body.dark .subtitle {
+  color: #F5E8D8;
+}
+.socials a {
+  margin-right: 1rem;
+  font-weight: 700;
+  padding: 0.3rem 0.8rem;
+  border-radius: 8px;
+  background: #eaeaea;
+  transition: background-color 0.3s, color 0.3s;
+  color: #0066cc;
+}
+.socials a:hover {
+  background: #0066cc;
+  color: white;
+}
+body.dark .socials a {
+  background: #333;
+  color: #eee;
+}
+body.dark .socials a:hover {
+  background: #90caf9;
+  color: #121212;
+}
 
-    #blur {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 100vw;
-      backdrop-filter: blur(12vmax);
-      z-index: 0;
-      pointer-events: none;
-    }
+/* === Sections === */
+section {
+  background: whitesmoke;
+  padding: 1.8rem 2rem;
+  margin-bottom: 2.5rem;
+  border-radius: 16px;
+  border: 2px solid #0066cc;
+  box-shadow: none;
+  transition: box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
+}
+body.dark section {
+  background: #222;
+  border-color: #444444;
+}
+section:hover {
+  box-shadow: 0 0 20px #0066ccaa;
+}
+body.dark section:hover {
+  box-shadow: 0 0 30px #90caf9cc;
+}
+h2.section-title {
+  font-family: 'Roboto Slab', serif;
+  font-size: 1.9rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+p.content, ul.content-list {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  margin-bottom: 1.3rem;
+}
 
-    @keyframes rotate {
-      from { rotate: 0deg; }
-      50% { scale: 1 1.5; }
-      to { rotate: 360deg; }
-    }
+/* === Skills === */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+.skill-badge {
+  background: #0066cc;
+  color: white;
+  padding: 0.35rem 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: 'Roboto Slab', serif;
+  user-select: none;
+  cursor: default;
+  transition: background-color 0.3s;
+}
+.skill-badge:hover {
+  background: #004a99;
+}
+body.dark .skill-badge {
+  background: #888888;
+  color: #121212;
+}
+body.dark .skill-badge:hover {
+  background: #A8DADC;
+}
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.08); }
-    }
+/* === QR Block === */
+.qr-block img {
+  width: 140px;
+  height: 140px;
+  border-radius: 16px;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
 
-    /* Disable blob and blur on small screens */
-    @media (max-width: 768px) {
-      #blob, #blur {
-        display: none;
-      }
-    }
+/* === Download Button === */
+.download-btn {
+  display: inline-block;
+  padding: 0.8rem 1.6rem;
+  background-color: #0066cc;
+  color: white;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+.download-btn:hover {
+  background-color: #0066cc;
+}
+body.dark .download-btn {
+  background-color: #888888;
+  color: #121212;
+}
+body.dark .download-btn:hover {
+  background-color: #A8DADC;
+}
 
-    /* === Page Content === */
-    .container {
-      max-width: 960px;
-      margin: 3rem auto 5rem;
-      padding: 0 1rem;
-      display: flex;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-    .left, .right {
-      flex: 1 1 320px;
-      display: flex;
-      flex-direction: column;
-    }
-    .profile-container {
-      position: relative;
-      text-align: center;
-      margin-bottom: 2.5rem;
-      padding-top: 90px;
-    }
-    .profile-cutout {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 5px solid #222;
-      background: white;
-      overflow: hidden;
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-      transition: border-color 0.3s;
-    }
-    body.dark .profile-cutout {
-      border-color: #eee;
-      background: #222;
-    }
-    .profile-cutout img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    h1.name {
-      font-family: 'Roboto Slab', serif;
-      font-weight: 700;
-      font-size: 3.2rem;
-      margin: 0 0 0.3rem 0;
-    }
-    .subtitle {
-      font-size: 1.25rem;
-      color: #555;
-      margin-bottom: 2rem;
-      transition: color 0.3s;
-    }
-    body.dark .subtitle {
-      color: #aaa;
-    }
-    .socials a {
-      margin-right: 1rem;
-      font-weight: 700;
-      padding: 0.3rem 0.8rem;
-      border-radius: 8px;
-      background: #eaeaea;
-      transition: background-color 0.3s, color 0.3s;
-      color: #0066cc;
-    }
-    .socials a:hover {
-      background: #0066cc;
-      color: white;
-    }
-    body.dark .socials a {
-      background: #333;
-      color: #eee;
-    }
-    body.dark .socials a:hover {
-      background: #90caf9;
-      color: #121212;
-    }
+/* === Dark/Light Toggle Button === */
+.toggle-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  background: #0066cc;
+  color: white;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 1000;
+  user-select: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+body.dark .toggle-container {
+  background: #90caf9;
+  color: #121212;
+}
+.toggle-container:hover {
+  background: #004a99;
+  color: white;
+}
+body.dark .toggle-container:hover {
+  background: #5a9ce9;
+  color: #121212;
+}
 
-    section {
-      background: white;
-      padding: 1.8rem 2rem;
-      margin-bottom: 2.5rem;
-      border-radius: 16px;
-      border: 2px solid #0066cc;
-      box-shadow: none;
-      transition: box-shadow 0.3s, background-color 0.3s, border-color 0.3s;
-    }
-    body.dark section {
-      background: #222;
-      border-color: #90caf9;
-    }
-    section:hover {
-      box-shadow: 0 0 20px #0066ccaa;
-    }
-    body.dark section:hover {
-      box-shadow: 0 0 30px #90caf9cc;
-    }
-
-    h2.section-title {
-      font-family: 'Roboto Slab', serif;
-      font-size: 1.9rem;
-      margin-top: 0;
-      margin-bottom: 1rem;
-      display: inline-block;
-    }
-
-    p.content, ul.content-list {
-      font-size: 1.15rem;
-      line-height: 1.5;
-      margin-bottom: 1.3rem;
-    }
-
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-    }
-    .skill-badge {
-      background: #0066cc;
-      color: white;
-      padding: 0.35rem 1rem;
-      border-radius: 12px;
-      font-weight: 700;
-      font-family: 'Roboto Slab', serif;
-      user-select: none;
-      cursor: default;
-      transition: background-color 0.3s;
-    }
-    .skill-badge:hover {
-      background: #004a99;
-    }
-    body.dark .skill-badge {
-      background: #90caf9;
-      color: #121212;
-    }
-    body.dark .skill-badge:hover {
-      background: #5a9ce9;
-    }
-
-    .qr-block img {
-      width: 140px;
-      height: 140px;
-      border-radius: 16px;
-      background-color: #fff;
-      box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    }
-
-    .download-btn {
-      display: inline-block;
-      padding: 0.8rem 1.6rem;
-      background-color: #0066cc;
-      color: white;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-    .download-btn:hover {
-      background-color: #004a99;
-    }
-    body.dark .download-btn {
-      background-color: #90caf9;
-      color: #121212;
-    }
-    body.dark .download-btn:hover {
-      background-color: #5a9ce9;
-    }
-
-    .toggle-container {
-      position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: #0066cc;
-      color: white;
-      border-radius: 20px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 700;
-      cursor: pointer;
-      z-index: 1000;
-      user-select: none;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    body.dark .toggle-container {
-      background: #90caf9;
-      color: #121212;
-    }
-    .toggle-container:hover {
-      background: #004a99;
-      color: white;
-    }
-    body.dark .toggle-container:hover {
-      background: #5a9ce9;
-      color: #121212;
-    }
-
-    .contact-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: #0066cc;
-      padding: 0.75rem 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 0.8rem;
-      font-weight: 700;
-      z-index: 1100;
-      color: white;
-      flex-wrap: wrap;
-    }
-    body.dark .contact-bar {
-      background: #90caf9;
-      color: #121212;
-    }
-    .contact-bar input,
-    .contact-bar button {
-      padding: 0.5rem 0.8rem;
-      border-radius: 8px;
-      border: none;
-      font-weight: 400;
-      font-size: 1rem;
-      outline: none;
-    }
-    .contact-bar button {
-      font-weight: 700;
-      background: white;
-      color: #0066cc;
-      cursor: pointer;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .contact-bar button:hover {
-      background-color: #004a99;
-      color: white;
-    }
-    body.dark .contact-bar button {
-      background: #121212;
-      color: #90caf9;
-    }
-    body.dark .contact-bar button:hover {
-      background-color: #5a9ce9;
-      color: #121212;
-    }
+/* === right side padding top === */
+.right{
+  padding-top: 50px;
+}
 
   </style>
 </head>
@@ -365,9 +299,9 @@
         <h1 class="name">Jatin Galphate</h1>
         <p class="subtitle">2025 BCA Graduate</p>
         <div class="socials">
-          <a href="https://linkedin.com/in/jatingalphate" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://github.com/jatingalphate" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="mailto:jatingalphate.dev@gmail.com" target="_blank" rel="noopener noreferrer">Email</a>
+          <a href="https://linkedin.com/in/jatin-galphate" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/JatinG20" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="mailto:jatingalphate2003@gmail.com" target="_blank" rel="noopener noreferrer">Email</a>
         </div>
       </div>
 
@@ -388,7 +322,7 @@
       </section>
 
       <section>
-        <h2 class="section-title">Download CV</h2>
+        <h2 class="section-title">Download CV</h2><br>
         <a href="#" download class="download-btn">Jatin Galphate Resume</a>
       </section>
 
@@ -397,10 +331,9 @@
         <p class="content">Poetry, Making music</p>
       </section>
 
-      <section class="qr-block">
-        <h2 class="section-title">My Portfolio QR Code</h2>
-        <img src="#" alt="QR Code" />
-        <p class="content">Scan to visit my portfolio</p>
+      <section>
+        <h2 class="section-title">Achievements</h2>
+        <p class="content">Successfully co-organised a trip to water treatment plant Bhopal with over 50+ students.</p>
       </section>
     </div>
 
@@ -409,7 +342,7 @@
       <section>
         <h2 class="section-title">Projects</h2>
         <p><a href="https://jating20.github.io/Not-Medium/" class="project-link">Yawn</a><br />A minimal blogging platform made with HTML, CSS, and JavaScript.</p>
-        <p><a href="#" class="project-link">Portfolio Website</a><br />This very portfolio website built with semantic HTML, CSS, and JS.</p>
+        <p><a href="https://github.com/JatinG20/Jaynistic" class="project-link">Portfolio Website</a><br />This very portfolio website built with semantic HTML, CSS, and JS.</p>
       </section>
 
       <section>
@@ -421,10 +354,12 @@
         </ul>
       </section>
 
-      <section>
-        <h2 class="section-title">Achievements</h2>
-        <p class="content">Successfully co-organised a trip to water treatment plant Bhopal with over 50+ students.</p>
+      <section class="qr-block">
+        <h2 class="section-title">Certificates</h2><br>
+        <img src="certificate qr.png" alt="QR Code"/>
+        <p class="content">C++ Codechef</p>
       </section>
+
     </div>
   </div>
 
